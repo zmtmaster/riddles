@@ -1,0 +1,22 @@
+{
+  "extends": "@react-native-community",
+  "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "parser": "flow",
+        "semi": true,
+        "singleQuote": true,
+        "tabWidth": 2,
+        "trailingComma": "es5",
+        "useTabs": false,
+        "endOfLine": "crlf"
+      }
+    ],
+    "no-unused-vars": [
+      "error",
+      { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }
+    ],
+    "quotes": ["error", "single"]
+  }
+}
