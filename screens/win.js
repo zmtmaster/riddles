@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
 import { Box } from '@mobily/stacks';
 import { Text, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'react-native-elements';
@@ -14,11 +14,10 @@ import { NAVIGATION_KEYS } from '../constants/internals';
 import { SET_TIME } from '../actions/actionTypes';
 import { getBestTimeSelector } from '../selectors';
 
-export default function Win({
-  route: {
+export default function Win() {
+  const {
     params: { time },
-  },
-}) {
+  } = useRoute();
   const navigation = useNavigation();
   const best = useSelector(getBestTimeSelector);
   const dispatch = useDispatch();

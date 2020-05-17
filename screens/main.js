@@ -23,7 +23,7 @@ export default function Main() {
   const coins = useSelector(getSelectedCurrentCoinsAmountSelector);
   const bestTime = useSelector(getBestTimeSelector);
   const onStart = useCallback(() => {
-    navigation.navigate(NAVIGATION_KEYS.QUIZ);
+    navigation.navigate(NAVIGATION_KEYS.QUIZ, { initialTime: 0 });
   }, [navigation]);
   useEffect(() => {
     dispatch({ type: GET_TIME });

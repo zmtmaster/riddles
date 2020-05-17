@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { Box, Stack } from '@mobily/stacks';
 import { Text, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Button } from 'react-native-elements';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,6 +16,9 @@ import { getSelectedCurrentCoinsAmountSelector } from '../selectors';
 export default function Failed() {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const {
+    params: { seconds },
+  } = useRoute();
   const coins = useSelector(getSelectedCurrentCoinsAmountSelector);
   const onReset = useCallback(() => {
     navigation.navigate(NAVIGATION_KEYS.MAIN);
@@ -23,10 +26,10 @@ export default function Failed() {
   }, [navigation, dispatch]);
   const onTryAgain = useCallback(() => {
     if (coins >= SHOP.TRY_AGAIN) {
-      navigation.navigate(NAVIGATION_KEYS.QUIZ);
+      navigation.navigate(NAVIGATION_KEYS.QUIZ, { initialTime: seconds });
       dispatch({ type: BUY_ITEM, payload: { amount: SHOP.TRY_AGAIN } });
     }
-  }, [navigation, dispatch, coins]);
+  }, [navigation, dispatch, seconds, coins]);
 
   return (
     <Background>

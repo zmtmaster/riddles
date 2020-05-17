@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { Box } from '@mobily/stacks';
 import { Bar } from 'react-native-progress';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { Image } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -17,20 +17,23 @@ import Question, { QUESTION_NUMBER } from '../components/question';
 const disabled = { opacity: 0.3 };
 
 const Quiz = () => {
-  const time = useCounter();
+  const {
+    params: { initialTime },
+  } = useRoute();
+  const { string, seconds } = useCounter(initialTime || 0);
   const dispatch = useDispatch();
   const qIdx = useSelector(getSelectedCurrentLevelSelector);
   const navigation = useNavigation();
   const onFail = useCallback(() => {
-    navigation.navigate(NAVIGATION_KEYS.FAIL);
-  }, [navigation]);
+    navigation.navigate(NAVIGATION_KEYS.FAIL, { seconds });
+  }, [navigation, seconds]);
   const onNext = useCallback(() => {
     dispatch({ type: NEXT_LEVEL });
   }, [dispatch]);
   const onComplete = useCallback(() => {
-    navigation.navigate(NAVIGATION_KEYS.WIN, { time });
+    navigation.navigate(NAVIGATION_KEYS.WIN, { string });
     dispatch({ type: RESET_LEVEL_COUNTER });
-  }, [navigation, time, dispatch]);
+  }, [navigation, string, dispatch]);
 
   return (
     <Background>
@@ -43,7 +46,7 @@ const Quiz = () => {
         />
       </Box>
       <Box flex="1/5" alignX="evenly" alignY="center" direction="row">
-        <Counter time={time} />
+        <Counter time={string} />
         <Bar progress={qIdx / QUESTION_NUMBER} />
         <Box>
           <Menu>

@@ -16,13 +16,13 @@ function format(seconds) {
   return `${leftPad(Math.floor(seconds / 60))}:${leftPad(seconds % 60)}`;
 }
 
-export default function useCounter() {
-  const [counter, setCounter] = useState(0);
+export default function useCounter(initialValue = 0) {
+  const [counter, setCounter] = useState(initialValue);
 
   useEffect(() => {
     const timer = setInterval(() => setCounter(counter + 1), 1000);
     return () => clearInterval(timer);
   }, [counter]);
 
-  return format(counter);
+  return { string: format(counter), seconds: counter };
 }
