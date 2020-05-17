@@ -16,7 +16,7 @@ In the project project the following technologies have been used.
 ##### Code
 
 - [Expo](https://expo.io/) (React Native, Expo)
-- React Hooks
+- React Hooks (useEffect, useState, Custom Hooks )
 - [React-Navigation](https://reactnavigation.org/)
   Used with a simple router and parameters
 - [Animations](https://reactnative.dev/docs/animations) Used React-Native animations (Animated.View, Animated.Text etc');
