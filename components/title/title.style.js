@@ -7,9 +7,12 @@ export default StyleSheet.create({
     width: 300,
     height: 80,
     backgroundColor: '#f3f3f3',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   icon: {
-    width: 300,
-    height: 80,
+    width: 48,
+    height: 48,
   },
 });

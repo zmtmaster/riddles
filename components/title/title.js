@@ -27,8 +27,7 @@ function Title() {
       style={[styles.title, { transform: [{ scale }] }, { borderRadius }]}
     >
       <Image
-        resizeMethod="scale"
-        resizeMode="center"
+        resizeMethod="auto"
         style={[styles.icon]}
         source={require('../../assets/icon.png')}
       />
