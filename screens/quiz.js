@@ -13,6 +13,7 @@ import Menu from '../components/menu';
 import Background from '../components/background';
 import Counter from '../components/counter';
 import Question, { QUESTION_NUMBER } from '../components/question';
+import useBackOverride from '../hooks/useBackOverride';
 
 const disabled = { opacity: 0.3 };
 
@@ -34,6 +35,8 @@ const Quiz = () => {
     navigation.navigate(NAVIGATION_KEYS.WIN, { string });
     dispatch({ type: RESET_LEVEL_COUNTER });
   }, [navigation, string, dispatch]);
+
+  useBackOverride();
 
   return (
     <Background>

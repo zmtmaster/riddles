@@ -12,6 +12,7 @@ import Image from '../components/round-image';
 import Background from '../components/background';
 import { NAVIGATION_KEYS, SHOP } from '../constants/internals';
 import { getSelectedCurrentCoinsAmountSelector } from '../selectors';
+import useBackOverride from '../hooks/useBackOverride';
 
 export default function Failed() {
   const navigation = useNavigation();
@@ -30,6 +31,7 @@ export default function Failed() {
       dispatch({ type: BUY_ITEM, payload: { amount: SHOP.TRY_AGAIN } });
     }
   }, [navigation, dispatch, seconds, coins]);
+  useBackOverride();
 
   return (
     <Background>

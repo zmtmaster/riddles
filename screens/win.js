@@ -10,6 +10,7 @@ import Title from '../components/title';
 import Image from '../components/round-image';
 import Background from '../components/background';
 
+import useBackOverride from '../hooks/useBackOverride';
 import { NAVIGATION_KEYS } from '../constants/internals';
 import { SET_TIME } from '../actions/actionTypes';
 import { getBestTimeSelector } from '../selectors';
@@ -32,6 +33,7 @@ export default function Win() {
   const onStart = useCallback(() => {
     navigation.navigate(NAVIGATION_KEYS.MAIN);
   }, [navigation]);
+  useBackOverride();
 
   return (
     <Background>
