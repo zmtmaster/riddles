@@ -6,6 +6,7 @@ import {
   BUY_ITEM,
   GET_TIME_SUCCESS,
   SET_TIME_SUCCESS,
+  GET_COINS_SUCCESS,
 } from '../actions/actionTypes';
 
 const initialState = {
@@ -32,6 +33,9 @@ export default function (state = initialState, action) {
     }
     case GET_TIME_SUCCESS: {
       return set('best', action.payload, state);
+    }
+    case GET_COINS_SUCCESS: {
+      return set('coins', action.payload, state);
     }
     default:
       break;

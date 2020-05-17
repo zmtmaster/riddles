@@ -4,7 +4,13 @@ import {
   GET_TIME_SUCCESS,
   SET_TIME,
   SET_TIME_SUCCESS,
+  GET_COINS,
+  GET_COINS_SUCCESS,
+  SET_COINS,
+  SET_COINS_SUCCESS,
+  INITIALIZE,
 } from '../../actions/actionTypes';
+import { ASYNC_KEYS } from '../../constants/internals';
 
 async function getValue(key) {
   return await AsyncStorage.getItem(key);
@@ -23,7 +29,7 @@ const asyncStorageMiddleware = (store) => (next) => (action) => {
   switch (type) {
     case GET_TIME: {
       dispatch(async function () {
-        const value = await getValue('best');
+        const value = await getValue(ASYNC_KEYS.BEST);
 
         if (value) {
           dispatch({ type: GET_TIME_SUCCESS, payload: value });
@@ -33,9 +39,34 @@ const asyncStorageMiddleware = (store) => (next) => (action) => {
     }
     case SET_TIME: {
       dispatch(async function () {
-        await setValue('best', action.payload);
+        await setValue(ASYNC_KEYS.BEST, action.payload);
 
         dispatch({ type: SET_TIME_SUCCESS, payload: action.payload });
+      });
+      break;
+    }
+    case GET_COINS: {
+      dispatch(async function () {
+        const value = await getValue(ASYNC_KEYS.COINS);
+
+        if (value) {
+          dispatch({ type: GET_COINS_SUCCESS, payload: value });
+        }
+      });
+      break;
+    }
+    case SET_COINS: {
+      dispatch(async function () {
+        await setValue(ASYNC_KEYS.COINS, action.payload);
+
+        dispatch({ type: SET_COINS_SUCCESS, payload: action.payload });
+      });
+      break;
+    }
+    case INITIALIZE: {
+      dispatch(async function () {
+        dispatch({ type: GET_TIME });
+        dispatch({ type: GET_COINS });
       });
       break;
     }

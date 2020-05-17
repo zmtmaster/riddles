@@ -1,7 +1,7 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { Box } from '@mobily/stacks';
 // import { Icon } from 'react-native-elements';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -15,19 +15,14 @@ import Image from '../components/round-image';
 import Background from '../components/background';
 import Carousel from '../components/carousel';
 import { NAVIGATION_KEYS } from '../constants/internals';
-import { GET_TIME } from '../actions/actionTypes';
 
 export default function Main() {
   const navigation = useNavigation();
-  const dispatch = useDispatch();
   const coins = useSelector(getSelectedCurrentCoinsAmountSelector);
   const bestTime = useSelector(getBestTimeSelector);
   const onStart = useCallback(() => {
     navigation.navigate(NAVIGATION_KEYS.QUIZ, { initialTime: 0 });
   }, [navigation]);
-  useEffect(() => {
-    dispatch({ type: GET_TIME });
-  }, [dispatch]);
 
   return (
     <Background>

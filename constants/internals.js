@@ -13,3 +13,7 @@ export const SHOP = {
   TRY_AGAIN: 5,
   SKIP: 30,
 };
+export const ASYNC_KEYS = {
+  COINS: 'coins',
+  BEST: 'best',
+};
