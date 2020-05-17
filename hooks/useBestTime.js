@@ -23,7 +23,7 @@ export default function useBestTime(time) {
     }
 
     if (time) {
-      if (time > best) {
+      if (time < best) {
         setBest(time);
         setToStorage(time);
       }
