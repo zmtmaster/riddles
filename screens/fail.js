@@ -1,20 +1,32 @@
 import React, { useCallback } from 'react';
-import { Box } from '@mobily/stacks';
-import { Icon } from 'react-native-elements';
+import { Box, Stack } from '@mobily/stacks';
 import { Text, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Button } from 'react-native-elements';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { RESET_LEVEL_COUNTER, BUY_ITEM } from '../actions/actionTypes';
 import Title from '../components/title';
 import Image from '../components/round-image';
 import Background from '../components/background';
-import { NAVIGATION_KEYS } from '../constants/internals';
+import { NAVIGATION_KEYS, SHOP } from '../constants/internals';
+import { getSelectedCurrentCoinsAmountSelector } from '../selectors';
 
 export default function Failed() {
   const navigation = useNavigation();
-  const onStart = useCallback(() => {
+  const dispatch = useDispatch();
+  const coins = useSelector(getSelectedCurrentCoinsAmountSelector);
+  const onReset = useCallback(() => {
     navigation.navigate(NAVIGATION_KEYS.MAIN);
-  }, [navigation]);
+    dispatch({ type: RESET_LEVEL_COUNTER });
+  }, [navigation, dispatch]);
+  const onTryAgain = useCallback(() => {
+    if (coins >= SHOP.TRY_AGAIN) {
+      navigation.navigate(NAVIGATION_KEYS.QUIZ);
+      dispatch({ type: BUY_ITEM, payload: { amount: SHOP.TRY_AGAIN } });
+    }
+  }, [navigation, dispatch, coins]);
 
   return (
     <Background>
@@ -25,14 +37,25 @@ export default function Failed() {
         <Image style={[styles.image]} src={require('../assets/cleaner.jpg')} />
         <Text style={[styles.failText]}>Failed</Text>
       </Box>
-      <Box alignX="evenly" alignY="center" flex="1/5" direction="row">
-        <TouchableOpacity onPress={onStart}>
-          <Button title="Back" />
-        </TouchableOpacity>
+      <Box alignX="around" alignY="center" flex="1/5">
+        <Stack space={3}>
+          <TouchableOpacity onPress={onReset}>
+            <Button title="Main" />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={onTryAgain}>
+            <Button
+              title={`Try again ${
+                coins < SHOP.TRY_AGAIN ? 'not enough coins' : '(5 coins)'
+              }`}
+              disabled={coins < SHOP.TRY_AGAIN}
+            />
+          </TouchableOpacity>
+        </Stack>
       </Box>
       <Box alignX="evenly" alignY="center" flex="1/5" direction="row">
-        <Box alignX="center">
-          <Icon raised name="cart-plus" type="font-awesome" color="#f50" />
+        <Box alignX="center" alignY="center" direction="row">
+          <Image source={require('../assets/coin.png')} />
+          <Text>{coins}</Text>
         </Box>
       </Box>
     </Background>

@@ -1,10 +1,12 @@
 import React, { useCallback } from 'react';
 import { Box } from '@mobily/stacks';
 // import { Icon } from 'react-native-elements';
+import { useSelector } from 'react-redux';
 import { Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
+import { getSelectedCurrentCoinsAmountSelector } from '../selectors';
 import Title from '../components/title';
 import Image from '../components/round-image';
 import Background from '../components/background';
@@ -14,6 +16,7 @@ import useBestTime from '../hooks/useBestTime';
 
 export default function Main() {
   const navigation = useNavigation();
+  const coins = useSelector(getSelectedCurrentCoinsAmountSelector);
   const onStart = useCallback(() => {
     navigation.navigate(NAVIGATION_KEYS.QUIZ);
   }, [navigation]);
@@ -51,10 +54,11 @@ export default function Main() {
         <Image src={require('../assets/logo-logo.png')} />
       </Box>
       <Box alignX="center" alignY="center" flex="1/5" direction="row">
-        {/* <Box alignX="center">
-          <Icon raised name="volume-up" type="font-awesome" color="#f50" />
+        <Box alignX="center" alignY="center" direction="row">
+          <Image source={require('../assets/coin.png')} />
+          <Text>{coins}</Text>
         </Box>
-        <Box alignX="center">
+        {/* <Box alignX="center">
           <Icon raised name="star" type="font-awesome" color="#f50" />
         </Box>
         <Box alignX="center">

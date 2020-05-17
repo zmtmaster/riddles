@@ -9,3 +9,7 @@ export const NAVIGATION_KEYS = {
 export const COLORS = {
   TEXT: '#fff',
 };
+export const SHOP = {
+  TRY_AGAIN: 5,
+  SKIP: 30,
+};
